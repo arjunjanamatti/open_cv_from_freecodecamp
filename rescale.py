@@ -11,7 +11,6 @@ def rescaleFrame(frame, scale = 0.75):
     width = int(frame.shape[1] * scale)
     height = int(frame.shape[0] * scale)
     dimensions = (width, height)
-
     return cv.resize(src=frame, dsize=dimensions, interpolation=cv.INTER_AREA)
 
 def readImage(img, window_name='original_image'):
@@ -28,6 +27,21 @@ print('Shape of the image: ', image_resize.shape)
 
 readImage(img)
 readImage(image_resize, window_name='resized_image')
+
+# reading videos
+capture = cv.VideoCapture('C:/Users/Arjun Janamatti/PycharmProjects/jeeva_project/upload_videos/video_2.mp4')
+
+while True:
+    isTrue, orig_frame = capture.read()
+    resize_frame = rescaleFrame(frame=orig_frame, scale=0.5)
+    cv.imshow('Video play', orig_frame)
+    cv.imshow('Resize video play', resize_frame)
+
+    if cv.waitKey(20) & 0xFF==ord('d'):
+        break
+capture.release()
+cv.destroyAllWindows()
+
 
 
 
