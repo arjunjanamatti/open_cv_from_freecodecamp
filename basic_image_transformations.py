@@ -51,4 +51,8 @@ cv.imshow(winname='resized', mat=resized)
 flip_image = cv.flip(src=img, flipCode=-1)
 cv.imshow(winname='flip_image', mat=flip_image)
 
+# cropping, like array slicing
+cropped_image = img[50:200, 200:300]
+cv.imshow(winname='cropped_image', mat=cropped_image)
+
 cv.waitKey(0)
