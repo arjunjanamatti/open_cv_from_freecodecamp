@@ -34,7 +34,7 @@ cv.imshow(winname='eroded_image', mat=eroded_image)
 resize_image = cv.resize(src=img, dsize=(900,900), interpolation=cv.INTER_CUBIC)
 cv.imshow(winname='resize_image', mat=resize_image)
 
-cropping, like array slicing
+# cropping, like array slicing
 cropped_image = img[50:200, 200:300]
 cv.imshow(winname='cropped_image', mat=cropped_image)
 
