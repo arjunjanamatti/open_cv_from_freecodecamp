@@ -55,4 +55,6 @@ cv.imshow(winname='thresh_image', mat=thresh)
 cv.drawContours(image=blank_image, contours=contours, contourIdx=-1,color=(0,0,255), thickness=1)
 cv.imshow(winname='draw_contour_image', mat=blank_image)
 
+# Recommended: Use canny method first to find contours rather than threshold and find contours in that
+
 cv.waitKey(0)
