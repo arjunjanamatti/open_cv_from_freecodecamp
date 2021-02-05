@@ -25,7 +25,7 @@ blur_image = cv.GaussianBlur(src=img, ksize=(7,7), sigmaX=cv.BORDER_DEFAULT)
 cv.imshow(winname='blur_image', mat=blur_image)
 
 # edge detection using canny
-canny_image = cv.Canny(image=blur_image, threshold1=125, threshold2=175)
+canny_image = cv.Canny(image=img, threshold1=125, threshold2=175)
 cv.imshow(winname='canny_image', mat=canny_image)
 
 # mode = cv.RETR_TREE if we want all heirachical contours
