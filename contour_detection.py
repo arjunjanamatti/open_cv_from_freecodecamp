@@ -37,8 +37,8 @@ cv.imshow(winname='canny_image', mat=canny_image)
 contours, hierarchies = cv.findContours(image=canny_image,mode=cv.RETR_LIST, method=cv.CHAIN_APPROX_NONE)
 print(f'{len(contours)} contours are found in the image using none method')
 
-contours, hierarchies = cv.findContours(image=canny_image,mode=cv.RETR_LIST, method=cv.CHAIN_APPROX_SIMPLE)
-print(f'{len(contours)} contours are found in the image using simple method')
+# contours, hierarchies = cv.findContours(image=canny_image,mode=cv.RETR_LIST, method=cv.CHAIN_APPROX_SIMPLE)
+# print(f'{len(contours)} contours are found in the image using simple method')
 
 # just by blurring the image and using this as source for canny significantly reduces the number of contours
 
@@ -48,8 +48,8 @@ print(f'{len(contours)} contours are found in the image using simple method')
 ret, thresh = cv.threshold(src=gray_image,thresh=125, maxval=255, type=cv.THRESH_BINARY)
 cv.imshow(winname='thresh_image', mat=thresh)
 
-contours, hierarchies = cv.findContours(image=thresh,mode=cv.RETR_LIST, method=cv.CHAIN_APPROX_NONE)
-print(f'{len(contours)} contours are found in the image using threshold method')
+# contours, hierarchies = cv.findContours(image=thresh,mode=cv.RETR_LIST, method=cv.CHAIN_APPROX_NONE)
+# print(f'{len(contours)} contours are found in the image using threshold method')
 
 # draw contours
 cv.drawContours(image=blank_image, contours=contours, contourIdx=-1,color=(0,0,255), thickness=1)
