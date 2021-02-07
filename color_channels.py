@@ -1,6 +1,5 @@
 import cv2 as cv
 import numpy as np
-import matplotlib.pyplot as plt
 
 # read the image
 img = cv.imread(filename = 'C:/Users/Arjun Janamatti/Documents/image_classification/nude_sexy_safe_v1_x320/testing/safe/0A556B72-059A-4BFE-AA28-80728C324749.jpg')
