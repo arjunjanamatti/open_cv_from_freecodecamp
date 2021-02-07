@@ -29,13 +29,13 @@ cv.imshow(winname='average_blur_high_blur', mat=average_blur)
 # given a particular weight, the average of products of those weights gives
 # the pixel intensity of the middle
 # sigmaX is the standard deviation along x-axis
-gauss_blur = cv.GaussianBlur(src=img, ksize=(7,7), sigmaX=0)
+gauss_blur = cv.GaussianBlur(src=img, ksize=(3,3), sigmaX=0)
 cv.imshow(winname='gauss_blur', mat=gauss_blur)
 
 # Median Blur: This is similar to averaging, however instead of averaging,
 # here the median value of surrounding pixel intensities is taken for
 # the middle pixel intensity
-median_blur = cv.medianBlur(src=img, ksize=7)
+median_blur = cv.medianBlur(src=img, ksize=3)
 cv.imshow(winname='median_blur', mat=median_blur)
 
 cv.waitKey(0)
