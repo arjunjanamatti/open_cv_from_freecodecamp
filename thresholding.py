@@ -31,4 +31,13 @@ adaptive_thresh = cv.adaptiveThreshold(src=gray_image,
                                        C=3)
 cv.imshow(winname='Adaptive threshold', mat=adaptive_thresh)
 
+# using gaussian instead of mean for method
+adaptive_thresh_gauss = cv.adaptiveThreshold(src=gray_image,
+                                       maxValue=255,
+                                       adaptiveMethod=cv.ADAPTIVE_THRESH_GAUSSIAN_C,
+                                       thresholdType= cv.THRESH_BINARY,
+                                       blockSize=11,
+                                       C=3)
+cv.imshow(winname='Adaptive threshold Gaussian', mat=adaptive_thresh_gauss)
+
 cv.waitKey(0)
