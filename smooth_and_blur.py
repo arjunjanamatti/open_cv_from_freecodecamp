@@ -38,4 +38,10 @@ cv.imshow(winname='gauss_blur', mat=gauss_blur)
 median_blur = cv.medianBlur(src=img, ksize=3)
 cv.imshow(winname='median_blur', mat=median_blur)
 
+# Bilateral blur: Here blurring is applied while retaining the edges
+# d is the diameter value
+# larger value of sigmaColor will consider more number of colors while computing the blurs
+# larger value of sigmaSpace will mean that pixels further away from center will be used for center pixel value computation
+bilateral_blur = cv.bilateralFilter(src=img, d=10, sigmaColor=15, sigmaSpace=15)
+cv.imshow(winname='bilateral_blur', mat=bilateral_blur)
 cv.waitKey(0)
