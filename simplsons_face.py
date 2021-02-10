@@ -1,7 +1,7 @@
 import os
 import caer
 import numpy as np
-import cv2 as cv2
+import cv2 as cv
 from glob import glob
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.callbacks import LearningRateScheduler
@@ -78,7 +78,7 @@ callbacks_list = [LearningRateScheduler(canaro.lr_schedule)]
 
 # train the model
 training = model.fit(x=train_gen,steps_per_epoch=len(x_train)/Batch_SIZE,epochs=10,validation_data=(x_val,y_val),validation_steps=len(y_train)/Batch_SIZE, callbacks=callbacks_list)
-
+test_path = 'simposons/kaggle_simpson_testset/kaggle_simpson_testset/abraham_grampa_simpson_2.jpg'
 img = cv.imread(test_path)
 
 plt.imshow(img)
@@ -86,8 +86,8 @@ plt.show()
 
 def prepare(image):
     image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
-    image = cv.resize(image, IMG_SIZE)
-    image = caer.reshape(image, IMG_SIZE, 1)
+    image = cv.resize(image, image_size)
+    image = caer.reshape(image, image_size, 1)
     return image
 
 predictions = model.predict(prepare(img))
