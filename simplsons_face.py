@@ -6,6 +6,8 @@ from glob import glob
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.callbacks import LearningRateScheduler
 import canaro
+import sklearn.model_selection as skm
+import matplotlib.pyplot as plt
 
 
 image_size = (80,80)
@@ -47,8 +49,8 @@ features, labels = caer.sep_train(data=train,IMG_SIZE=image_size,channels=channe
 # normalize the features and we have to labels from numerical integers to one hot encode
 features = caer.normalize(features)
 labels = to_categorical(y=labels,num_classes=len(characters))
-
-x_train,x_val,y_train,y_val = caer.train_val_split(X=features,y=labels,val_ratio=0.2)
+split_data = skm.train_test_split(features, labels, test_size=.2)
+x_train, x_val, y_train, y_val = (np.array(item) for item in split_data)
 
 del train
 del features
@@ -57,10 +59,17 @@ del labels
 # image data generator
 Batch_SIZE = 32
 datagen = canaro.generators.imageDataGenerator()
-train_gen = datagen.flow(x_train,y=y_train,batch_size=Batch_SIZE)
+train_gen = datagen.flow(x_train,y_train,batch_size=Batch_SIZE)
 
 # creation of model
-model = canaro.models.createSimpsonsModel(IMG_SIZE=image_size,channels=channels,output_dim=len(characters),loss='binary_crossentropy',decay=1e-6,learning_rate=0.001,momentum=0.9,nesterov=True)
+model = canaro.models.createSimpsonsModel(IMG_SIZE=image_size,
+                                          channels=channels,
+                                          output_dim=len(characters),
+                                          loss='binary_crossentropy',
+                                          decay=1e-6,
+                                          learning_rate=0.001,
+                                          momentum=0.9,
+                                          nesterov=True)
 
 print(model.summary())
 
@@ -69,3 +78,19 @@ callbacks_list = [LearningRateScheduler(canaro.lr_schedule)]
 
 # train the model
 training = model.fit(x=train_gen,steps_per_epoch=len(x_train)/Batch_SIZE,epochs=10,validation_data=(x_val,y_val),validation_steps=len(y_train)/Batch_SIZE, callbacks=callbacks_list)
+
+img = cv.imread(test_path)
+
+plt.imshow(img)
+plt.show()
+
+def prepare(image):
+    image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+    image = cv.resize(image, IMG_SIZE)
+    image = caer.reshape(image, IMG_SIZE, 1)
+    return image
+
+predictions = model.predict(prepare(img))
+
+# Getting class with the highest probability
+print(characters[np.argmax(predictions[0])])
