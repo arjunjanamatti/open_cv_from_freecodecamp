@@ -12,10 +12,10 @@ def mouse_click_points(event,x,y,flags,params):
         print(points_list)
         # print(x,y)
 
-
-cv.imshow(winname='angle_measure', mat=image)
-cv.setMouseCallback('angle_measure', mouse_click_points)
-cv.waitKey(0)
+while True:
+    cv.imshow(winname='angle_measure', mat=image)
+    cv.setMouseCallback('angle_measure', mouse_click_points)
+    cv.waitKey(1)
 
 # https://www.youtube.com/watch?v=NmRt9kdUefk&list=PLMoSUbG1Q_r8vFXoAZPKyj-WLcD2aGoNZ
 # https://github.com/murtazahassan?tab=repositories
