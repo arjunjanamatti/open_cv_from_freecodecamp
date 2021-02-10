@@ -2,8 +2,9 @@ import cv2 as cv
 import math
 
 image_loc = 'angle_measure.jpg'
-image = cv.imread(filename=image_loc)
 points_list = []
+image = cv.imread(filename=image_loc)
+
 
 def mouse_click_points(event,x,y,flags,params):
     if event == cv.EVENT_LBUTTONDOWN:
@@ -15,7 +16,10 @@ def mouse_click_points(event,x,y,flags,params):
 while True:
     cv.imshow(winname='angle_measure', mat=image)
     cv.setMouseCallback('angle_measure', mouse_click_points)
-    cv.waitKey(1)
+    # if we press q, the points will be reset
+    if cv.waitKey(1) & 0xFF==ord('q'):
+        points_list = []
+        image = cv.imread(filename=image_loc)
 
 # https://www.youtube.com/watch?v=NmRt9kdUefk&list=PLMoSUbG1Q_r8vFXoAZPKyj-WLcD2aGoNZ
 # https://github.com/murtazahassan?tab=repositories
