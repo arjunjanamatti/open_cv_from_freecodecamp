@@ -43,6 +43,3 @@ while True:
     if cv.waitKey(1) & 0xFF==ord('q'):
         points_list = []
         image = cv.imread(filename=image_loc)
-
-# https://www.youtube.com/watch?v=NmRt9kdUefk&list=PLMoSUbG1Q_r8vFXoAZPKyj-WLcD2aGoNZ
-# https://github.com/murtazahassan?tab=repositories
