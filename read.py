@@ -25,8 +25,10 @@ class ReadImages:
     def __init__(self, image):
         self.image = image
 
-    def read_image(self):
+    def display_image(self):
         cv.imshow(winname='image_window', mat=self.image)
         cv.waitKey(0)
 
-    pass
+image = cv.imread(filename = 'C:/Users/Arjun Janamatti/Documents/image_classification/nude_sexy_safe_v1_x320/testing/safe/0AFBAF6E-AC8F-4F86-B131-26AF632BF574.jpg')
+read_image = ReadImages(image)
+read_image.display_image()
