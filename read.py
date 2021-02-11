@@ -32,6 +32,7 @@ class ReadImages:
 
     def display_videos(self):
         capture = cv.VideoCapture(self.video)
+        print(capture)
         while True:
             isTrue, frame = capture.read()
             cv.imshow(winname='play_video', mat=frame)
@@ -41,5 +42,9 @@ class ReadImages:
         cv.destroyAllWindows()
 
 image = cv.imread(filename = 'C:/Users/Arjun Janamatti/Documents/image_classification/nude_sexy_safe_v1_x320/testing/safe/0AFBAF6E-AC8F-4F86-B131-26AF632BF574.jpg')
-read_image = ReadImages(image)
+video = 'C:/Users/Arjun Janamatti/PycharmProjects/jeeva_project/upload_videos/safe/video_2.mp4'
+read_image = ReadImages(image, video)
 read_image.display_image()
+read_image.display_videos()
+
+
