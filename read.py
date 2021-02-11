@@ -32,7 +32,6 @@ class ReadImages:
 
     def display_videos(self):
         capture = cv.VideoCapture(self.video)
-        print(capture)
         while True:
             isTrue, frame = capture.read()
             cv.imshow(winname='play_video', mat=frame)
