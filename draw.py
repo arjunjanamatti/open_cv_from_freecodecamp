@@ -47,6 +47,13 @@ class ImagesDraw:
         cv.imshow(winname=window_name, mat=image)
         cv.waitKey(0)
 
+    def BlankImage(self):
+        # creation of blank image, here datatype 'uint8' image type
+        # height = 600, width = 400, number of color channels = 3
+        blank_image = np.zeros(shape=(600, 400, 3), dtype='uint8')
+        cv.imshow(winname='blank_image', mat=blank_image)
+        cv.waitKey(0)
+        pass
 
     pass
 
