@@ -55,7 +55,15 @@ class ImagesDraw:
         cv.waitKey(0)
         pass
 
+    def DrawCircle(self):
+        cv.circle(img=self.blank_image, color=(0,0,255), thickness=cv.FILLED,center=(int(self.blank_image.shape[1]*0.5),int(self.blank_image.shape[0]*0.5)), radius = 50)
+        cv.imshow(winname='blank_image with circle', mat=self.blank_image)
+        cv.waitKey(0)
+        pass
+
     pass
 
-image_draw = ImagesDraw
+image_draw = ImagesDraw()
 image_draw.BlankImage()
+image_draw.DrawRectangle()
+image_draw.DrawCircle()
