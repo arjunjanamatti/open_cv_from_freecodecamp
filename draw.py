@@ -35,3 +35,18 @@ readImage(img=blank_image, window_name='Green background')
 # 5. write text on an image
 cv.putText(img=blank_image, text='This just drawing things on a blank image',org=(0, int(blank_image.shape[0]*0.8)), fontFace=cv.FONT_HERSHEY_PLAIN, fontScale=1.0, color=(0,0,255), thickness=2 )
 readImage(img=blank_image, window_name='Green background')
+
+class ImagesDraw:
+    def __init__(self, image_path):
+        self.image_path = image_path
+        pass
+
+    def ReadImage(self,window_name='original_image'):
+        # display the read image
+        image = cv.imread(self.image_path)
+        cv.imshow(winname=window_name, mat=image)
+        cv.waitKey(0)
+
+
+    pass
+
