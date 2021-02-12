@@ -40,9 +40,9 @@ cv.imshow(winname='rotatedimage', mat=rotated)
 rotated_to_rotated = rotate_image(rotated,45)
 cv.imshow(winname='rotated_to_rotated', mat=rotated_to_rotated)
 
-# resizing
-resized = cv.resize(src=img,dsize=(500,500), interpolation=cv.INTER_CUBIC)
-cv.imshow(winname='resized', mat=resized)
+# # resizing
+# resized = cv.resize(src=img,dsize=(500,500), interpolation=cv.INTER_CUBIC)
+# cv.imshow(winname='resized', mat=resized)
 
 # flipping an image
 # flipcode = 0, implies flipping the image vertically along x axis
