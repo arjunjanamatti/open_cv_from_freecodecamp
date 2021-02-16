@@ -6,6 +6,8 @@ import views.home
 api = fastapi.FastAPI()
 
 def configure():
-    api.include_router()
+    api.include_router(views.home.router)
 
-uvicorn.run(app=api)
+configure()
+if __name__=='__main__':
+    uvicorn.run(app=api)
