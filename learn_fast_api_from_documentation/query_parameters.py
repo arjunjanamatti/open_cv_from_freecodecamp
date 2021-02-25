@@ -1,5 +1,6 @@
 import fastapi
 import uvicorn
+from typing import Optional
 
 app_api = fastapi.FastAPI()
 
@@ -24,7 +25,14 @@ def read_item(skip: int = 0, limit: int = 10):
     return fake_items_db[skip : skip + limit]
 
 @app_api.get("/optional_items/")
-async def optional_read_item(skip: int = 0, limit: int = 10):
-    return fake_items_db[skip : skip + limit]
+async def optional_read_item(item_id: str = 'Arjun', optional_item: Optional[str]=None):
+    if optional_item:
+        return {
+            'item_id': item_id,
+            'optional_item': optional_item
+        }
+    return {
+        'item_id': item_id
+    }
 
 uvicorn.run(app=app_api)
