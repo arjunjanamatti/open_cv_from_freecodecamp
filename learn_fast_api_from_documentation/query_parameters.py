@@ -35,4 +35,14 @@ async def optional_read_item(item_id: str = 'Arjun', optional_item: Optional[str
         'item_id': item_id
     }
 
+# http://127.0.0.1:8000/optional_items/?item_id=fine&optional_item=arjun
+
+# multiple parameters
+@app_api.get('/multiple_users/{user_id}/multiple_items/{item_id}')
+def multiple_items(user_id: str, item_id: str):
+    return {
+        'user_id': user_id,
+        'item_id': item_id
+    }
+
 uvicorn.run(app=app_api)
