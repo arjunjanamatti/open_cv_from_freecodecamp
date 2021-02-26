@@ -19,8 +19,8 @@ class calculator:
 
     pass
 
-a = 3
-b = 4
+a = int(input('Enter the first variable: '))
+b = int(input('Enter the second variable: '))
 calc = calculator(a,b)
 print(f'Addition of {a} and {b} is {calc.add_numbers()}')
 print(f'Multiplication of {a} and {b} is {calc.multiply_numbers()}')
