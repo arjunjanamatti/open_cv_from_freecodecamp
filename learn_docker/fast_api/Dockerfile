@@ -15,4 +15,5 @@ RUN pip install -r requirements.txt
 CMD [ "python", "./2.py"]
 
 # in command prompt, we have add -p which stands for port number and then type 8000
-# docker run -p 8000 pythonfastpi
+# docker run -p 5000:5000 pythonfastpi
+# http://127.0.0.1:5000/
