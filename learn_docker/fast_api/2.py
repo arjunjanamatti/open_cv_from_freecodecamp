@@ -44,5 +44,5 @@ def multiple_items(user_id: str, item_id: str):
         'user_id': user_id,
         'item_id': item_id
     }
-
-uvicorn.run(app=app_api)
+# always specify host address
+uvicorn.run(app=app_api, port=8000, host="0.0.0")
