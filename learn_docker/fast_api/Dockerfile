@@ -7,3 +7,9 @@
 FROM python:3.8
 
 ADD 2.py .
+
+COPY requirements.txt .
+
+RUN pip install -r requirements.txt
+
+CMD [ "python", "./2.py"]
