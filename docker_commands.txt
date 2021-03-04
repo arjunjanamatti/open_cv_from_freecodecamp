@@ -1,0 +1,10 @@
+
+Procedure to push the image to dockerhub
+1. First you have to tag the docker image 
+docker tag IMAGENAME docker_hub_user_name/repo_name:commit_name
+2.Then you can push
+docker push docker_hub_user_name/repo_name:commit_name
+
+
+
+List all docker images: docker ps
