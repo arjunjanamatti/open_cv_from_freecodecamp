@@ -35,6 +35,11 @@ words_corpus = [words.lower() for words in words_corpus]
 # remove '?' from the corpus list
 words_corpus = [words for words in words_corpus if words != '?']
 print(len(words_corpus))
+
+# lemmatize each word in corpus
+lemma = WordNetLemmatizer()
+words_corpus = [lemma.lemmatize(words) for words in words_corpus]
+
 # only unique words and order the corpus list
 words_corpus = sorted(list(set(words_corpus)))
 print(len(words_corpus))
@@ -43,4 +48,13 @@ labels_empty = [0 for _ in range(len(labels_list))]
 print(labels_empty)
 
 for index, sentence in enumerate(sentence_list):
+    features_list = []
     print(index, sentence)
+
+    sentence_lemma = [lemma.lemmatize(words) for words in sentence]
+    for words in sentence_lemma:
+        if words in words_corpus:
+            features_list.append(1)
+        else:
+            features_list.append(0)
+            
