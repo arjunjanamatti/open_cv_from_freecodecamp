@@ -38,3 +38,9 @@ print(len(words_corpus))
 # only unique words and order the corpus list
 words_corpus = sorted(list(set(words_corpus)))
 print(len(words_corpus))
+
+labels_empty = [0 for _ in range(len(labels_list))]
+print(labels_empty)
+
+for index, sentence in enumerate(sentence_list):
+    print(index, sentence)
