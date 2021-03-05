@@ -15,8 +15,6 @@ sentence_labels_list = []
 
 
 for dictionary in data['intents']:
-    # print(dictionary)
-    # print(dictionary['patterns'])
     labels_list.append(dictionary['tag'])
     for sentences in dictionary['patterns']:
         tokenized_sentences = (word_tokenize(text=sentences))
@@ -46,7 +44,8 @@ print(len(words_corpus))
 
 labels_empty = [0 for _ in range(len(labels_list))]
 print(labels_empty)
-
+labels_empty_nested = []
+features_nested = []
 for index, sentence in enumerate(sentence_list):
     features_list = []
     print(index, sentence)
@@ -57,4 +56,10 @@ for index, sentence in enumerate(sentence_list):
             features_list.append(1)
         else:
             features_list.append(0)
-            
+    labels_empty_copy = labels_empty[:]
+    labels_empty_copy[labels_list.index(sentence_labels_list[index])] = 1
+    labels_empty_nested.append(labels_empty_copy)
+    features_nested.append(features_list)
+    print(sentence_labels_list[index], labels_list.index(sentence_labels_list[index]))
+print(len(labels_empty_nested))
+
