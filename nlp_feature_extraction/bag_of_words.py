@@ -3,6 +3,7 @@ from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 from nltk import word_tokenize
 import numpy as np
+import pickle
 
 # load the json file like a dictionary
 with open('intents.json') as file:
@@ -69,3 +70,6 @@ for index, sentence in enumerate(sentence_list):
 # convert list to numpy array
 features_nested = np.array(features_nested)
 labels_empty_nested = np.array(labels_empty_nested)
+
+with open(file='data.pickle', mode='wb') as file:
+    pickle.dump(obj=(words_corpus, labels_list, features_nested, labels_empty_nested), file=file)
