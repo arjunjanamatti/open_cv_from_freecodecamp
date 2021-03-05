@@ -41,7 +41,6 @@ class bag_of_words:
 
             # remove '?' from the corpus list
             words_corpus = [words for words in words_corpus if words != '?']
-            print(len(words_corpus))
 
             # lemmatize each word in corpus
             lemma = WordNetLemmatizer()
@@ -49,11 +48,9 @@ class bag_of_words:
 
             # only unique words and order the corpus list
             words_corpus = sorted(list(set(words_corpus)))
-            print(len(words_corpus))
 
             # here the labels have to be created, hence first will create empty labels and based on the label will fill up as binary bag of words
             labels_empty = [0 for _ in range(len(labels_list))]
-            print(labels_empty)
             labels_empty_nested = []
             features_nested = []
             for index, sentence in enumerate(sentence_list):
