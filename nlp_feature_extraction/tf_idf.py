@@ -42,30 +42,47 @@ words_corpus = sorted(list(set(words_corpus)))
 labels_empty = [0 for _ in range(len(labels_list))]
 
 labels_empty_nested = []
-features_nested = []
+term_frequency_nested = []
+
+def dict_value_count(list_1):
+    element_count = {}
+    for element in list_1:
+        # checking whether it is in the dict or not
+        if element in element_count:
+            # incerementing the count by 1
+            element_count[element] += 1
+        else:
+            # setting the count to 1
+            element_count[element] = 1
+    return element_count, len(list_1)
 
 for index, sentence in enumerate(sentence_list):
-    features_list = []
+    terms_frequency = []
 
     sentence_lemma = [lemma.lemmatize(words) for words in sentence]
 
     sentence_lemma = [words.lower() for words in sentence_lemma]
 
     # term frequency
-    print(sorted(sentence_lemma))
+    # print(sorted(sentence_lemma))
+    print(sentence_lemma)
+    word_dict, total_words_sentence = dict_value_count(sentence_lemma)
 
-    for words in sentence_lemma:
+    for words in word_dict:
+        # print(words)
         # if word in the sentence in the corpus, add 1 else 0
         if words in words_corpus:
-            features_list.append(1)
+            print(words, int(word_dict[words])/int(total_words_sentence))
+            terms_frequency.append(int(word_dict[words])/int(total_words_sentence))
         else:
-            features_list.append(0)
-
-    # now for the labels, based on the label add 1 or 0
-    labels_empty_copy = labels_empty[:]
-    labels_empty_copy[labels_list.index(sentence_labels_list[index])] = 1
-    labels_empty_nested.append(labels_empty_copy)
-    features_nested.append(features_list)
+            print(words, 0)
+            terms_frequency.append(0)
+    #
+    # # now for the labels, based on the label add 1 or 0
+    # labels_empty_copy = labels_empty[:]
+    # labels_empty_copy[labels_list.index(sentence_labels_list[index])] = 1
+    # labels_empty_nested.append(labels_empty_copy)
+    term_frequency_nested.append(terms_frequency)
 
 # # convert list to numpy array
 # features_nested = np.array(features_nested)
