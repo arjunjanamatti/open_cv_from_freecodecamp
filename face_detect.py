@@ -40,9 +40,13 @@ def detect_face_try(image_location,neighbors):
         cv.rectangle(img=img,pt1=(x,y),pt2=(x+w,y+h),thickness=2,color=(0,255,0))
         roi_color = img[y:y + h, x:x + w]
         print("[INFO] Object found. Saving locally.")
-        cv.imwrite(str(w) + str(h) + '_faces.jpg', roi_color)
-    cv.imshow(winname='Face detection',mat=img)
-    cv.waitKey(0)
+        # print(str(x)+ str(w) + str(h) + '_faces.jpg')
+        cv.imwrite(str(x)+ str(w) + str(h) + '_faces.jpg', roi_color)
+        cv.imshow(winname='Only face', mat=roi_color)
+        cv.waitKey(0)
+    # cv.imshow(winname='Face detection',mat=img)
+    # cv.imshow(winname='Only face', mat=img)
+    # cv.waitKey(0)
 single_image = 'C:/Users/Arjun Janamatti/Documents/image_classification/nude_sexy_safe_v1_x320/testing/safe/0B16C26F-2C07-4F75-B8BC-F7A50E3D5EFE.jpg'
 group_img = 'C:/Users/Arjun Janamatti/Documents/image_classification/nude_sexy_safe_v1_x320/training/sexy/GantMan_0A21E234-F4FF-49A7-B6AC-98C69F5C6EF2.jpg'
 detect_face_try(single_image,3)
