@@ -4,8 +4,8 @@ import numpy as np
 import altair as alt
 import pydeck as pdk
 
-# SETTING PAGE CONFIG TO WIDE MODE
-st.beta_set_page_config(layout="wide")
+# # SETTING PAGE CONFIG TO WIDE MODE
+# st.beta_set_page_config(layout="wide")
 
 # LOADING DATA
 DATE_TIME = "date/time"
@@ -22,3 +22,6 @@ def load_data(nrows):
     return data
 
 data = load_data(100000)
+hour = 12
+data = data[data[DATE_TIME].dt.hour == hour]
+'data', data
