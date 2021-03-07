@@ -24,4 +24,8 @@ def load_data(nrows):
 data = load_data(100000)
 hour = 12
 data = data[data[DATE_TIME].dt.hour == hour]
-'data', data
+
+f'Map the geo data: {hour} hour'
+st.map(data=data)
+
+f'Raw data @ {hour}hour: ', data
