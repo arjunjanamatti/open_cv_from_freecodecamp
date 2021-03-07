@@ -22,5 +22,5 @@ some_op = operations(a,b)
 
 print(some_op.add_numbers())
 
-st.write(a,b,f'addition is: {some_op.add_numbers()}')
+st.write(f'addition {a} and {b} is: {some_op.add_numbers()}')
 
