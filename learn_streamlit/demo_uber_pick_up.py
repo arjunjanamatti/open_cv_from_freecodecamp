@@ -22,7 +22,7 @@ def load_data(nrows):
     return data
 
 data = load_data(100000)
-hour = 12
+hour = st.slider(label='hour', min_value=0, max_value=23, value=12, step=1)
 data = data[data[DATE_TIME].dt.hour == hour]
 
 f'Map the geo data: {hour} hour'
