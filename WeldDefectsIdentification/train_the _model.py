@@ -4,6 +4,13 @@ import os
 import random
 import tensorflow as tf
 
+class UNetModel:
+    def __init__(self, images_location, labels_location):
+        self.images_location = images_location
+        self.labels_location = labels_location
+        pass
+    pass
+
 h,w = 512,512
 images_list = []
 labels_list = []
