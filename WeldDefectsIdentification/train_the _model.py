@@ -41,7 +41,36 @@ class UNetModel:
         return images, labels
 
     def CreateModel(self):
-        pass
+        inputs = tf.keras.layers.Input(shape=(self.h, self.w, 3))
+
+        conv1 = tf.keras.layers.Conv2D(16, (3, 3), activation='relu', padding='same')(inputs)
+        pool1 = tf.keras.layers.MaxPool2D()(conv1)
+
+        conv2 = tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same')(pool1)
+        pool2 = tf.keras.layers.MaxPool2D()(conv2)
+
+        conv3 = tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same')(pool2)
+        pool3 = tf.keras.layers.MaxPool2D()(conv3)
+
+        conv4 = tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same')(pool3)
+
+        upsm5 = tf.keras.layers.UpSampling2D()(conv4)
+        upad5 = tf.keras.layers.Add()([conv3, upsm5])
+        conv5 = tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same')(upad5)
+
+        upsm6 = tf.keras.layers.UpSampling2D()(conv5)
+        upad6 = tf.keras.layers.Add()([conv2, upsm6])
+        conv6 = tf.keras.layers.Conv2D(16, (3, 3), activation='relu', padding='same')(upad6)
+
+        upsm7 = tf.keras.layers.UpSampling2D()(conv6)
+        upad7 = tf.keras.layers.Add()([conv1, upsm7])
+        conv7 = tf.keras.layers.Conv2D(1, (3, 3), activation='relu', padding='same')(upad7)
+
+        model = tf.keras.models.Model(inputs=inputs, outputs=conv7)
+
+        return model
+
+
 
     pass
 
