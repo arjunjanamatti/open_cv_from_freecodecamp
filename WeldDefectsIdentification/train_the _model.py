@@ -67,3 +67,12 @@ def create_model():
 
     return model
 
+
+model = create_model()  # uncomment this to create a new model
+print(model.summary())
+
+model.compile(optimizer='adam', loss='binary_crossentropy',metrics=['accuracy'])
+model.fit(images,labels,epochs=100,batch_size=10)
+model.evaluate(images,labels)
+
+model.save('my_model')
