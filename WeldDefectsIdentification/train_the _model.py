@@ -11,6 +11,35 @@ class UNetModel:
         pass
 
     def ImageResize(self):
+        self.h, self.w = 512, 512
+        self.images_list = []
+        self.labels_list = []
+        images_directory = os.listdir(self.images_location)
+        random.shuffle(images_directory)
+        for images in images_directory:
+            img = cv2.imread('./dataset/images/' + images)
+            parts = images.split('_')
+            label_name = './dataset/labels/' + 'W0002_' + parts[1]
+            label = cv2.imread(label_name, 2)
+
+            img = cv2.resize(img, (w, h))
+            label = cv2.resize(label, (w, h))
+
+            images_list.append(img)
+            labels_list.append(label)
+
+        print(len(images_list), len(labels_list))
+
+        images = np.array(images_list)
+        labels = np.array(labels_list)
+        labels = np.reshape(labels,
+                            (labels.shape[0], labels.shape[1], labels.shape[2], 1))
+
+        print(images.shape)
+        print(labels.shape)
+
+        images = images / 255
+        labels = labels / 255
         pass
 
     pass
