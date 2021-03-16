@@ -73,16 +73,20 @@ class UNetModel:
     def UseModel(self):
         images, labels = self.ImageResize()
         try:
-            model = tf.keras.models.load_model('my_model')
+            self.model = tf.keras.models.load_model('my_model')
 
         except:
-            model = self.CreateModel()  # uncomment this to create a new model
+            self.model = self.CreateModel()  # uncomment this to create a new model
 
-            model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-            model.fit(images, labels, epochs=100, batch_size=10)
-            model.evaluate(images, labels)
+            self.model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+            self.model.fit(images, labels, epochs=100, batch_size=10)
+            self.model.evaluate(images, labels)
 
-            model.save('my_model')
+            self.model.save('my_model')
+        pass
+
+    def TestModel(self):
+        
         pass
 
 
