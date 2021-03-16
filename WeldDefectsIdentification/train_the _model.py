@@ -9,6 +9,10 @@ class UNetModel:
         self.images_location = images_location
         self.labels_location = labels_location
         pass
+
+    def ImageResize(self):
+        pass
+
     pass
 
 h,w = 512,512
