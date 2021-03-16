@@ -67,12 +67,15 @@ def create_model():
 
     return model
 
+try:
+    model = tf.keras.models.load_model('my_model')
 
-model = create_model()  # uncomment this to create a new model
-print(model.summary())
+except:
+    model = create_model()  # uncomment this to create a new model
+    print(model.summary())
 
-model.compile(optimizer='adam', loss='binary_crossentropy',metrics=['accuracy'])
-model.fit(images,labels,epochs=100,batch_size=10)
-model.evaluate(images,labels)
+    model.compile(optimizer='adam', loss='binary_crossentropy',metrics=['accuracy'])
+    model.fit(images,labels,epochs=100,batch_size=10)
+    model.evaluate(images,labels)
 
-model.save('my_model')
+    model.save('my_model')
