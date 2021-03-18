@@ -19,6 +19,10 @@ import numpy as np
 # X NumPy array.
 #
 
+'''
+Convert the inputs to a numpy array and reshape them
+'''
+
 array_1 = np.array([int(num) for num in input().split()])
 print(np.reshape(array_1, (3,3)))
 
