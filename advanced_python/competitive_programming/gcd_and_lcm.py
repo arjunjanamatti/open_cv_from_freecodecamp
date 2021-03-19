@@ -13,4 +13,7 @@ for num in range(1, number_1+1):
     else:
         pass
 
+def simple_gcd(number_1, number_2):
+    pass
+
 print(gcd)
