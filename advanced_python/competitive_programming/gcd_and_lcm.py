@@ -1,8 +1,11 @@
+import time
+
 ##### GCD
 number_1 = int(input('Enter the first number: ').strip())
 number_2 = int(input('Enter the second number: ').strip())
 
 def simple_gcd(number_1, number_2):
+    start = time.perf_counter()
     if number_1 > number_2:
         pass
     else:
@@ -13,6 +16,9 @@ def simple_gcd(number_1, number_2):
             gcd = num
         else:
             pass
-    return gcd
+    finish = time.perf_counter()
+    total_time = round(finish-start, 2)
+    return gcd, total_time
 
-print(f'Greatest common devisor of {number_1} and {number_2} using simple method is {simple_gcd(number_1, number_2)} ')
+gcd_simple, total_time = simple_gcd(number_1, number_2)
+print(f'Greatest common devisor of {number_1} and {number_2} using simple method is {gcd_simple} and time taken: {total_time} seconds')
