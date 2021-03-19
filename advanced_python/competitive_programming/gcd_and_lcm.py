@@ -61,10 +61,11 @@ def euclidean_gcd(number_1, number_2):
     return euclidean_gcd(number_1 % number_2, number_2)
 
     
+print(f'Greatest common devisor of {number_1} and {number_2} using euclidean method is {euclidean_gcd(number_1,number_2)}')
+print(f'Greatest common devisor of {number_1} and {number_2} using euclid method is {euclid_gcd(number_1,number_2)} ')
 
-print(euclidean_gcd(number_1, number_2))
-# gcd_simple, total_time_simple = simple_gcd(number_1, number_2)
-# gcd_small_improved, total_time_small_improved = simple_gcd(number_1, number_2)
-#
-# print(f'Greatest common devisor of {number_1} and {number_2} using small_improved method is {gcd_small_improved} and time taken: {total_time_small_improved} seconds')
-# print(f'Greatest common devisor of {number_1} and {number_2} using simple method is {gcd_simple} and time taken: {total_time_simple} seconds')
+gcd_simple, total_time_simple = simple_gcd(number_1, number_2)
+gcd_small_improved, total_time_small_improved = simple_gcd(number_1, number_2)
+
+print(f'Greatest common devisor of {number_1} and {number_2} using small_improved method is {gcd_small_improved} and time taken: {total_time_small_improved} seconds')
+print(f'Greatest common devisor of {number_1} and {number_2} using simple method is {gcd_simple} and time taken: {total_time_simple} seconds')
