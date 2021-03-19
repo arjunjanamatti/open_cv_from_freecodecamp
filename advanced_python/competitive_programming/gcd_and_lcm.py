@@ -15,3 +15,4 @@ def simple_gcd(number_1, number_2):
             pass
     return gcd
 
+print(f'Greatest common devisor of {number_1} and {number_2} using simple method is {simple_gcd(number_1, number_2)} ')
