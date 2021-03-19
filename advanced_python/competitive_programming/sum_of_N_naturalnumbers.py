@@ -1,8 +1,9 @@
 
-# simple way
+##### SUM OF FIRST N NATURAL NUMBERS
 number = int(input('Enter the number: ').strip())
 
 def sum_method_1(number):
+    # simple way
     sum_numbers = [num for num in range(1, number + 1)]
     return sum(sum_numbers)
 
