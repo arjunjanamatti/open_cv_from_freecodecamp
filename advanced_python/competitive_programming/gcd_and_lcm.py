@@ -49,8 +49,20 @@ def euclid_gcd(number_1, number_2):
         return number_1
     return euclid_gcd(number_1-number_2, number_2)
 
+def euclidean_gcd(number_1, number_2):
+    # A more efficient method is the Euclidean algorithm, a variant in which the difference of the two numbers a and b is replaced by the remainder of the Euclidean division (also called division with remainder) of a by b.
+    # Denoting this remainder as a mod b, the algorithm replaces (a, b) by (b, a mod b) repeatedly until the pair is (d, 0), where d is the greatest common divisor.
+    if number_1 > number_2:
+        pass
+    else:
+        number_1, number_2 = number_2, number_1
+    if number_2 == 0:
+        return number_1
+    return euclidean_gcd(number_1 % number_2, number_2)
 
-print(euclid_gcd(number_1, number_2))
+    
+
+print(euclidean_gcd(number_1, number_2))
 # gcd_simple, total_time_simple = simple_gcd(number_1, number_2)
 # gcd_small_improved, total_time_small_improved = simple_gcd(number_1, number_2)
 #
