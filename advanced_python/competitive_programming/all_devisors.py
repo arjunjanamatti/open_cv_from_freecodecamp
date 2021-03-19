@@ -18,9 +18,14 @@ def root_devisors(number):
         if number % num == 0:
             divisors.add(num)
             divisors.add(number//num)
-            print(num, number//num)
+    return list(divisors)
 
-    pass
+# a = [1,2,3,4,5]
+# for i in range(1, len(a)):
+#     print(a[i], end=' ')
+# or
+# print(*a)
 
-root_devisors(number)
-# print(f'All divisors of {number} are {simple_devisors(number)}')
+# root_devisors(number)
+print(f'All divisors of {number} are {root_devisors(number)}')
+print(f'All divisors of {number} are {simple_devisors(number)}')
