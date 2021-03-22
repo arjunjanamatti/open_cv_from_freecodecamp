@@ -41,6 +41,13 @@ class ResumeAndJD:
         self.jd_text_directory = jd_text_directory
         self.pdf_list = [os.fsdecode(file) for file in os.listdir(f'{self.pdf_directory}/')]
 
+    def MakeDirectories(self):
+        try:
+            os.mkdir(self.resume_text_directory)
+            os.mkdir(self.jd_text_directory)
+        except:
+            pass
+
     def PdfToText(self, filename):
         if filename.endswith('.pdf'):
             file_name = filename.split('.')[0]
@@ -64,7 +71,7 @@ class ResumeAndJD:
             file_name = filename.split('.')[0]
             # print(filename)
             all_text = ''  # new line
-            with pdfplumber.open(pdf_directory + '/' + filename) as pdf:
+            with pdfplumber.open(filename) as pdf:
                 # page = pdf.pages[0] - comment out or remove line
                 # text = page.extract_text() - comment out or remove line
                 for pdf_page in pdf.pages:
@@ -73,12 +80,14 @@ class ResumeAndJD:
                     # separate each page's text with newline
                     all_text = all_text + '\n' + single_page_text
                 # print(all_text)
-                with open(f"{file_name}.txt", "w", encoding="utf-8") as file:
+                with open(f"{self.jd_text_directory}/{file_name}.txt", "w", encoding="utf-8") as file:
                     file.write(all_text)
 
 
     def ThreadMultiCheck(self):
         start = time.perf_counter()
+        self.MakeDirectories()
+        self.JdPdftoText()
         with concurrent.futures.ThreadPoolExecutor() as executor:
             executor.map(self.PdfToText, self.pdf_list)
         finish = time.perf_counter()
@@ -90,7 +99,7 @@ class ResumeAndJD:
 
     pass
 
-new_instance = ResumeAndJD(pdf_directory, resume_text_directory)
+new_instance = ResumeAndJD(pdf_directory, resume_text_directory, job_description, jd_text_directory)
 new_instance.ThreadMultiCheck()
 
 # def pdf_to_text(filename):
