@@ -66,5 +66,89 @@ def modify(word):
         return None  # to handle the odd case of characters like 'x02', etc.
 
 
+# utility function to skip line when no alphabet present
+def is_empty(line):
+    for c in line:
+        if (c.isalpha()):
+            return False
+    return True
 
+
+dict_of_data_series = {}
+flag_print = False
+
+for file_name in os.listdir(os.getcwd() + '/resume_text'):
+    if flag_print:
+        print('\n')
+        print('*' * 25)
+        print(file_name)
+        print('*' * 25)
+
+    main_file_handler = open('resume_text/' + file_name, 'r', encoding='utf-8')
+    previous_section = 'extra'
+
+    curr_data_series = pd.Series([""] * len(list_of_sections), index=list_of_sections)
+
+    for line in main_file_handler:
+        # skip line if empty
+        if (len(line.strip()) == 0 or is_empty(line)):
+            continue
+
+        # processing next line
+        list_of_words_in_line = re_c.findall(line)
+        list_of_imp_words_in_line = []
+
+        for i in range(len(list_of_words_in_line)):
+            modified_word = modify(list_of_words_in_line[i])
+
+            if (modified_word):
+                list_of_imp_words_in_line.append(modified_word)
+
+        curr_line = ' '.join(list_of_imp_words_in_line)
+        doc = nlp(curr_line)
+        section_value = {}
+
+        # initializing section values to zero
+        for section in list_of_sections:
+            section_value[section] = 0.0
+        section_value[None] = 0.0
+
+        # updating section values
+        for token in doc:
+            for section in list_of_sections:
+                for word in similar_to[section]:
+                    word_token = doc.vocab[word]
+                    section_value[section] = max(section_value[section], float(word_token.similarity(token)))
+
+        # determining the next section based on section values and threshold
+        most_likely_section = None
+        for section in list_of_sections:
+            # print '>>', section, section_value[section]
+            if (section_value[most_likely_section] < section_value[section] and section_value[section] > threshold):
+                most_likely_section = section
+
+        # updating the section
+        if (previous_section != most_likely_section and most_likely_section is not None):
+            previous_section = most_likely_section
+
+        # writing data to the pandas series
+        try:
+            docx = nlp(line)
+        except:
+            continue  # to handle the odd case of characters like 'x02', etc.
+        mod_line = ''
+        for token in docx:
+            if (not token.is_stop):
+                mod_line += token.lemma_ + ' '
+
+        curr_data_series[previous_section] += mod_line
+
+    dict_of_data_series[file_name] = curr_data_series
+    if flag_print:
+        print(curr_data_series)
+    main_file_handler.close()
+
+data_frame = pd.DataFrame(dict_of_data_series)
+data_frame.to_csv('prc_data.csv', sep='\t')
+# data_frame.head()
 
