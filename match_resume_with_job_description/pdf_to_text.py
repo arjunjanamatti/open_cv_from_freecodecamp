@@ -31,6 +31,9 @@ text_directory = 'resume_text'
 #     print(f'Total time ForLoop: {round(finish-start, 2)} seconds')
 #                 # print(text) - comment out or remove line
 
+class ResumeAndJD:
+    pass
+
 def pdf_to_text(filename):
     if filename.endswith('.pdf'):
         file_name = filename.split('.')[0]
@@ -48,7 +51,7 @@ def pdf_to_text(filename):
             with open(f"{text_directory}/{file_name}.txt", "w", encoding="utf-8") as file:
                 file.write(all_text)
 
-b = [os.fsdecode(file) for file in os.listdir(f'{pdf_directory}/')]
+
 
 
 def ThreadMultiCheck(b):
@@ -57,5 +60,7 @@ def ThreadMultiCheck(b):
         executor.map(pdf_to_text, b)
     finish = time.perf_counter()
     print(f'Total time ThreadMultiCheck: {round(finish-start, 2)} seconds')
+
+b = [os.fsdecode(file) for file in os.listdir(f'{pdf_directory}/')]
 
 ThreadMultiCheck(b)
