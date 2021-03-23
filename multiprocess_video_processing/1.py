@@ -4,7 +4,7 @@ import subprocess as sp
 import multiprocessing as mp
 from os import remove
 
-file_name = 'arnold.mp4'
+
 def process_video():
     # Read video file
     cap = cv.VideoCapture(file_name)
@@ -29,12 +29,12 @@ def process_video():
                 break
 
             im = frame
-            # Perform face detection of frame
-            _, bboxes = detectum.process_frame(im, THRESHOLD)
-
-            # Loop through list (if empty this will be skipped) and overlay green bboxes
-            for i in bboxes:
-                cv.rectangle(im, (i[0], i[1]), (i[2], i[3]), (0, 255, 0), 3)
+            # # Perform face detection of frame
+            # _, bboxes = detectum.process_frame(im, THRESHOLD)
+            #
+            # # Loop through list (if empty this will be skipped) and overlay green bboxes
+            # for i in bboxes:
+            #     cv.rectangle(im, (i[0], i[1]), (i[2], i[3]), (0, 255, 0), 3)
 
             # write the frame
             out.write(im)
@@ -46,3 +46,25 @@ def process_video():
     # Release resources
     cap.release()
     out.release()
+
+
+def single_process():
+    print("Video processing using single process...")
+    start_time = time.time()
+    process_video()
+    end_time = time.time()
+    total_processing_time = end_time - start_time
+    print("Time taken: {}".format(total_processing_time))
+    print("FPS : {}".format(frame_count / total_processing_time))
+
+
+file_name = 'arnold.mp4'
+output_file_name = "output.mp4"
+cap = cv.VideoCapture(file_name)
+width, height, frame_count = (
+        int(cap.get(cv.CAP_PROP_FRAME_WIDTH)),
+        int(cap.get(cv.CAP_PROP_FRAME_HEIGHT), int(cap.get(cv.CAP_PROP_FPS))
+
+print("Video frame count = {}".format(frame_count))
+print("Width = {}, Height = {}".format(width, height))
+single_process()
