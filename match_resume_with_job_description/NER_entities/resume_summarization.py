@@ -2,30 +2,25 @@ import spacy
 import pickle
 import random
 import pandas as pd
+from ast import literal_eval
 
-# with open('train_data.txt', 'r', encoding='utf-8') as file:
-#     train_data = file.read()
+# df = pd.read_csv('train_data.txt', sep='\n', header=None)
 #
-#
-# with open(file='train_data.pkl', mode = 'wb') as file:
-#     pickle.dump(train_data, file)
+# df.to_pickle('train_data.pickle')
 
-try:
-    with open(file='train_data.pickle', mode='rb') as file:
-        word_list_df = pickle.load(file)
-except:
-    # df = pd.read_csv('train_data.txt', header=None)
-    # word_list_df = [words for words in df.iloc[:, -1]]
+# content_list = [_ for _ in df.iloc[:,-1]]
+# with open('train_data.pickle', 'wb') as file:
+#     pickle.dump(content_list,file)
 
-    with open('train_data.txt', 'r', encoding='utf-8') as file:
-        word_list_df = file.read()
+df_1 = pd.read_pickle('train_data.pickle')
 
-    with open('train_data.pickle', mode='wb') as file:
-        pickle.dump(word_list_df, file)
+content_list = [_ for _ in df_1.iloc[:,-1]]
+print(len(content_list[0]))
+print(((literal_eval(content_list[0])))[0])
+print(((literal_eval(content_list[0])))[1])
+new_updated_list = []
+for j in range(len(content_list)):
+    for i in  ((literal_eval(content_list[j]))):
+        new_updated_list.append(i)
 
-print(word_list_df)
-
-# with open('train_data.pkl', 'rb', encoding='utf-8') as file:
-#     train_data = file.read()
-#
-# print(train_data)
+print(new_updated_list[1])
