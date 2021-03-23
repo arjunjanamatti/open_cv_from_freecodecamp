@@ -19,9 +19,14 @@ def GetEntities(text_file):
         for i in ((literal_eval(content_list[j]))):
             new_updated_list.append(i)
 
-    new_updated_list_1 = new_updated_list[1::2]
-    return new_updated_list_1
+    annotation_list = new_updated_list[1::2]
+    text_list = new_updated_list[1::2]
+    return text_list, annotation_list
 
 text_file = 'train_data'
-new_updated_list_1 = GetEntities(text_file)
-print(new_updated_list_1)
+text_list, annotation_list = GetEntities(text_file)
+
+for ann in annotation_list:
+    for ent in ann['entities']:
+        print(ent[0], ent[2])
+
