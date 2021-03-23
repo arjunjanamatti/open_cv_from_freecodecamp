@@ -61,9 +61,9 @@ def single_process():
 file_name = 'arnold.mp4'
 output_file_name = "output.mp4"
 cap = cv.VideoCapture(file_name)
-width, height, frame_count = (
-        int(cap.get(cv.CAP_PROP_FRAME_WIDTH)),
-        int(cap.get(cv.CAP_PROP_FRAME_HEIGHT), int(cap.get(cv.CAP_PROP_FPS))
+width = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
+height = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
+frame_count = int(cap.get(cv.CAP_PROP_FPS))
 
 print("Video frame count = {}".format(frame_count))
 print("Width = {}, Height = {}".format(width, height))
