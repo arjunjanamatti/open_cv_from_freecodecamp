@@ -21,10 +21,17 @@ def GetEntities(text_file):
 
     annotation_list = new_updated_list[1::2]
     text_list = new_updated_list[0::2]
-    return text_list, annotation_list, new_updated_list
+    annotation_list_updated_nested = []
+    for annotation in annotation_list:
+        annotation_list_updated = []
+        for i in annotation['entities']:
+            if 'Companies worked at' not in i:
+                annotation_list_updated.append(i)
+        annotation_list_updated_nested.append(annotation_list_updated)
+    return text_list, annotation_list_updated_nested
 
 text_file = 'train_data'
-text_list, annotation_list, new_updated_list = GetEntities(text_file)
+text_list, annotation_list = GetEntities(text_file)
 
 # for ann in annotation_list:
 #     for ent in ann['entities']:
@@ -39,7 +46,7 @@ def train_model(text_list, annotation_list):
 
     for annotation in annotation_list:
         for ent in annotation['entities']:
-            ner.add_label(ent[2])
+            ner.add_label(annotation[2])
 
     other_pipes = [pipe for pipe in nlp.pipe_names if pipe!='ner']
     with nlp.disable_pipes(*other_pipes):
@@ -66,6 +73,18 @@ def train_model(text_list, annotation_list):
             print(losses)
 
 
+
+annotation_list_updated_nested = []
+for annotation in annotation_list:
+    annotation_list_updated = []
+    for i in annotation['entities']:
+        if 'Companies worked at' not in i:
+            annotation_list_updated.append(i)
+    annotation_list_updated_nested.append(annotation_list_updated)
+
+
+# for ann in annotation_list:
+#     print(ann)
 
 # train_model(text_list, annotation_list)
 # nlp.to_disk('nlp_model_1')
