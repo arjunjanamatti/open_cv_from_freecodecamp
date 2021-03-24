@@ -25,7 +25,9 @@ def GetEntities(text_file):
     for annotation in annotation_list:
         annotation_list_updated = []
         for i in annotation['entities']:
-            if ('Name' in i) or ('Email' in i):
+            # if ('Name' in i) or ('Email Address' in i)  or ('Designation' in i):
+            if  ('Email Address' in i):
+
                 annotation_list_updated.append(i)
         annotation_list_updated_nested.append(annotation_list_updated)
     new_list = []
