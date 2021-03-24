@@ -46,8 +46,8 @@ def train_model(text_list, annotation_list):
         optimizer = nlp.begin_training()
         for itn in range(10):
             print(f'Start Iteration: {itn}')
-            random.shuffle(annotation_list)
-            random.shuffle(text_list)
+            # random.shuffle(annotation_list)
+            # random.shuffle(text_list)
             losses = {}
             index = 0
             for text, annotation in zip(text_list, annotation_list):
@@ -59,6 +59,7 @@ def train_model(text_list, annotation_list):
                         sgd=optimizer,
                         losses=losses
                     )
+
                 except Exception as e:
                     print(f'Exception: {e}')
 
@@ -66,5 +67,16 @@ def train_model(text_list, annotation_list):
 
 
 
-train_model(text_list, annotation_list)
-nlp.to_disk('nlp_model')
+# train_model(text_list, annotation_list)
+# nlp.to_disk('nlp_model_1')
+
+# if 'ner' not in nlp.pipe_names:
+#     ner = nlp.create_pipe('ner')
+#     nlp.add_pipe(ner, last=True)
+#
+# for annotation in annotation_list:
+#     for ent in annotation['entities']:
+#         print(ent[2])
+#         ner.add_label(ent[2])
+#
+# print(nlp.pipe_names)
