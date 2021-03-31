@@ -8,8 +8,11 @@
 # bitwise and operator
 number = int(input('Enter the number: '))
 
+
+# rightshift is divide in power of 2
+# 200 >> 3 means 200 // 2**3 which is 200 // 8 = 25
 def EvenOdd(number):
-    if number & 1:
+    if number & 2:
         return 'Odd'
     else:
         return 'Even'
