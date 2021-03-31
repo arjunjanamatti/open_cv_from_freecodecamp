@@ -20,12 +20,18 @@ def root_devisors(number):
             divisors.add(number//num)
     return list(divisors)
 
-# a = [1,2,3,4,5]
-# for i in range(1, len(a)):
-#     print(a[i], end=' ')
-# or
-# print(*a)
+for num in range(1, int(number**(0.5)) + 1):
+    if number % num == 0:
+        print(num)
+        print(number // num)
+        print()
 
-# root_devisors(number)
-print(f'All divisors of {number} are {root_devisors(number)}')
-print(f'All divisors of {number} are {simple_devisors(number)}')
+# # a = [1,2,3,4,5]
+# # for i in range(1, len(a)):
+# #     print(a[i], end=' ')
+# # or
+# # print(*a)
+#
+# # root_devisors(number)
+# print(f'All divisors of {number} are {root_devisors(number)}')
+# print(f'All divisors of {number} are {simple_devisors(number)}')
