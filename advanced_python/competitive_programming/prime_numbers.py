@@ -10,10 +10,14 @@ def approach_1(number):
         return False
     if number == 2 or number == 3:
         return True
+    count = 0
     for num in range(1, int((number**0.5)+1)):
         if number % num == 0:
             factors_list.add(num)
             factors_list.add(number//num)
+            count += 1
+        if count > 2:
+            return False
 
     if len(list(factors_list)) == 2:
         return True
