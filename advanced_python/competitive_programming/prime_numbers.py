@@ -20,7 +20,19 @@ def approach_1(number):
     else:
         return False
 
+def approach_2(number):
+    if number == 0 or number == 1:
+        return False
+    if number == 2 or number == 3:
+        return True
+    if number%2 == 0 or number%3==0:
+        return False
+    for i in range(5, int((number**0.5)+1)):
+        if number%i == 0 or number%(i+2) == 0:
+            return False
+    return True
 
 
+print(approach_2(number))
 print(approach_1(number))
 
