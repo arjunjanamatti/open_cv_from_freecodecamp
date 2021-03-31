@@ -6,6 +6,10 @@ number = int(input('Enter the number: '))
 
 def approach_1(number):
     factors_list = set()
+    if number == 0 or number == 1:
+        return False
+    if number == 2 or number == 3:
+        return True
     for num in range(1, int((number**0.5)+1)):
         if number % num == 0:
             factors_list.add(num)
