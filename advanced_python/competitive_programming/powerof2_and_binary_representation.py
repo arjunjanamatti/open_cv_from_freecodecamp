@@ -3,6 +3,8 @@
 number = int(input('Enter the number: '))
 
 def power_of_2(number):
+    if number < 0:
+        return False
     x = number
     y = not(number & (number-1))
     return x and y
