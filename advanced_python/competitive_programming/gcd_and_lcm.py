@@ -68,3 +68,12 @@ def lcm(number_1, number_2):
     return product//gcd
 
 print(f'Greatest common devisor of {number_1} and {number_2} is {euclidean_gcd(number_1,number_2)} and Least common multiple is {lcm(number_1,number_2)}')
+
+# samples = [[1,1,1],
+#            [1,1,0],
+#            [0,0,0]]
+# number_of_rows = len(samples)
+# number_of_columns = len(samples[0])
+#
+# sample_zero_squares = [[0 for col in range(number_of_columns)] for row in range(number_of_rows)]
+# print(sample_zero_squares)
