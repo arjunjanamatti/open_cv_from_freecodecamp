@@ -8,19 +8,12 @@
 
 
 def AbsoluteDiagonalDifference(ar):
-    n_rows = len(ar)
-    n_cols = len(ar)
+    n = len(ar)
     first_diag = 0
     second_diag = 0
-    for row in range(n_rows):
-        for col in range(n_cols):
-            if (row == col) & (row != len(ar)//2  and col != len(ar)//2):
-                first_diag += ar[row][col]
-            elif (row == (len(ar)-1) and col == 0) | (row == 0 and col == (len(ar)-1)):
-                second_diag += ar[row][col]
-    middle_value = ar[len(ar)//2][len(ar)//2]
-    first_diag = first_diag + middle_value
-    second_diag = second_diag + middle_value
+    for i in range(n):
+        first_diag += ar[i][i]
+        second_diag += ar[i][n-1-i]
     return abs(first_diag - second_diag)
 
 
