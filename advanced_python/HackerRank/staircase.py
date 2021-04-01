@@ -20,7 +20,14 @@ def staircase(n):
         print(space*list_2[i]+has*list_1[i])
     pass
 
+def stair_case(n):
+    for i in range(1,n+1):
+        hash = '#'*i
+        print(hash.rjust(n))
+
 if __name__ == '__main__':
     n = int(input())
 
     staircase(n)
+    print()
+    stair_case(n)
