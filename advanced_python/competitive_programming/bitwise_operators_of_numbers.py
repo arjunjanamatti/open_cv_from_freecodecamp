@@ -7,12 +7,12 @@
 
 # bitwise and operator
 number = int(input('Enter the number: '))
-
+power = int(input('Enter the power: '))
 
 # rightshift is divide in power of 2
 # 200 >> 3 means 200 // 2**3 which is 200 // 8 = 25
 
-# leftshit is multiply in power of 2
+# leftshift is multiply in power of 2
 # 200 << 3 means 200 * 2**3 which is 200 * 8 = 1600
 def EvenOdd(number):
     if number & 1:
@@ -20,5 +20,16 @@ def EvenOdd(number):
     else:
         return 'Even'
 
+def leftshift(number, power):
+    # leftshift is multiply in power of 2
+    # 200 << 3 means 200 * 2**3 which is 200 * 8 = 1600
+    return number << power
+
+def rightshift(number, power):
+    # rightshift is divide in power of 2
+    # 200 >> 3 means 200 // 2**3 which is 200 // 8 = 25
+    return number >> power
 
 print(f'{number} is {EvenOdd(number)}')
+print(f'{number, power} is {leftshift(number, power)}')
+print(f'{number, power} is {rightshift(number, power)}')
