@@ -33,6 +33,17 @@ def gradingStudents(grades):
                 result.append(grade)
     return result
 
+def grade_round_students(grades):
+    result = []
+    for grade in grades:
+        if grade >= 38:
+            mod5 = grade % 5
+            if mod5 >= 3:
+                grade += 5-mod5
+        result.append(grade)
+    return grade
+
+
 if __name__ == '__main__':
     # fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
