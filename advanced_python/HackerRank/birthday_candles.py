@@ -26,6 +26,10 @@ def birthdayCakeCandles(candles):
     return count
     # Write your code here
 
+def birthday_Cake_Candles(candles):
+    return candles.count(max(candles))
+
+
 if __name__ == '__main__':
     # fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
@@ -33,7 +37,7 @@ if __name__ == '__main__':
 
     candles = list(map(int, input().rstrip().split()))
 
-    result = birthdayCakeCandles(candles)
+    result = birthday_Cake_Candles(candles)
 
     print(str(result) + '\n')
 
