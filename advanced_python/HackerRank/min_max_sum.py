@@ -11,6 +11,19 @@ def min_and_max(arr):
     max_sum = sum(arr[1:])
     print(min_sum, end=' ')
     print(max_sum)
-    return min_sum, max_sum
 
-min_sum, max_sum = min_and_max(arr)
+def minmax(arr):
+    sum_arr = 0
+    min_num = 99999999999999999999
+    max_num = 0
+    for i in arr:
+        sum_arr += i
+        min_num = min(min_num, i)
+        max_num = max(max_num, i)
+    print(min_num, max_num)
+    print(sum_arr - min_num, end=' ')
+    print(sum_arr - max_num)
+    pass
+
+min_and_max(arr)
+minmax(arr)
