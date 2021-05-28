@@ -1,6 +1,16 @@
-import ast
+import pandas as pd
+from statadict import parse_stata_dict
 
-...
+stata_dict = parse_stata_dict(file="2002FemPreg.dct")
+data = pd.read_fwf("2002FemPreg.dat", names=stata_dict.names, colspecs=stata_dict.colspecs)
 
-with open("/path/to/file", "r") as data:
-    dictionary = ast.literal_eval(data.read())
+print(data.head())
+print()
+print(f'Shape of the dataframe: {data.shape}')
+print(data.columns)
+
+
+
+
+
+
