@@ -60,10 +60,22 @@ raw_df_2020['user_id'] = raw_df_2020['user_id'].apply(lambda x: x if "deepa" not
 raw_df_2020['user_id'] = raw_df_2020['user_id'].apply(lambda x: x if "munna" not in x else "null")
 raw_df_2020 = raw_df_2020[raw_df_2020['user_id'] != "null"]
 
-data_groupby = raw_df_2020.groupby(pd.Grouper(freq="M"))
+# data_groupby = raw_df_2020.groupby(raw_df_2020.index.month)
+data_groupby = raw_df_2020.groupby(raw_df_2020.index)
 dates_dict = {}
 for group in data_groupby.groups:
     dates_dict[group] = data_groupby.get_group(group)
 
 print(dates_dict)
 
+import spacy
+
+nlp = spacy.load("en_core_web_md")
+print('loaded successfully')
+
+message_list = list(raw_df_2020['message'])
+for mes in message_list:
+    doc = nlp(mes)
+    for ent in doc.ents:
+        print(ent.text, ent.start_char, ent.end_char, ent.label_)
+    print()
