@@ -20,6 +20,8 @@ import networkx as nx
 #
 #     return sentences
 
+
+
 file_name = 'text_1'
 with open(file_name, 'r') as file:
     # data = file.read()
