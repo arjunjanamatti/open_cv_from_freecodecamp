@@ -78,14 +78,19 @@ raw_df_2020 = raw_df_2020[raw_df_2020['user_id'] != "null"]
 arjun_wishes = raw_df_2020[raw_df_2020['user_id'] == 'arjun janamatti']
 print(raw_df_2020['user_id'].unique())
 
-
+def remove_newline(row):
+    regex = re.compile("[\n\r\t]")
+    row = regex.sub("", row)
+    return row
+arjun_wishes_1 = arjun_wishes.copy()
+arjun_wishes_1['message'] = arjun_wishes['message'].apply(lambda x: re.compile("[\n\r\t]").sub("", x))
 
 arjun_wish_dict = {}
 def get_wishes(rows):
     dates, messages = rows
     arjun_wish_dict[str(dates).split()[0]] = messages
 
-list(map(get_wishes, arjun_wishes[['message']].itertuples()))
+list(map(get_wishes, arjun_wishes_1[['message']].itertuples()))
 print(arjun_wish_dict)
 today = pd.to_datetime('today').floor('D')
 print(today)
