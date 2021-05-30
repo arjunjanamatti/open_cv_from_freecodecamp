@@ -28,7 +28,7 @@ class get_personal_wish_messages:
             self.read_data = [d.lower() for d in data]
 
             with open(pickle_file_location, 'wb') as file:
-                pickle.dump(obj=read_data, file=file)
+                pickle.dump(obj=self.read_data, file=file)
 
 
     def GetYearBirthdayWishes(self):
@@ -36,12 +36,12 @@ class get_personal_wish_messages:
         def get_data(dat):
             year_match_2019 = (re.findall(pattern=".*([\d]{1,2}/[\d]{1,2}/[1,9]{2})",string=dat))
             if (len(year_match_2019) > 0) & ("happy" in dat):
-                self.data_2019_birthday.append(only)
+                self.data_2019_birthday.append(dat)
             year_match_2020 = (re.findall(pattern=".*([\d]{1,2}/[\d]{1,2}/[0,2]{2})",string=dat))
             if (len(year_match_2020) > 0) & ("happy" in dat):
-                self.data_2020_birthday.append(only_1)
+                self.data_2020_birthday.append(dat)
             pass
-        list(map(get_data, read_data))
+        list(map(get_data, self.read_data))
         date, time, user_id, message = [], [], [], []
 
         def get_yearwise_data(partial_data):
@@ -50,7 +50,7 @@ class get_personal_wish_messages:
             user_id.append((partial_data.split("-")[-1]).split(":")[0])
             message.append((partial_data.split("-")[-1]).split(":")[-1])
 
-        list(map(get_yearwise_data, data_2020_birthday))
+        list(map(get_yearwise_data, self.data_2020_birthday))
         #
         self.raw_df_2020 = pd.DataFrame()
         self.raw_df_2020['date'] = date
@@ -94,6 +94,10 @@ class get_personal_wish_messages:
 
 
     pass
+
+result = get_personal_wish_messages(pickle_file_location)
+result_dict = result.GetDiciontaryWishes()
+print(result_dict)
 
 # try:
 #     with open(file=pickle_file_location, mode='rb') as file_read:
