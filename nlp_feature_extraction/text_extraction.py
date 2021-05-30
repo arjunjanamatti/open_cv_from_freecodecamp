@@ -8,6 +8,8 @@ pickle_file_location = 'C:/Users/Arjun Janamatti/Downloads/data.pickle'
 class get_personal_wish_messages:
     def __init__(self, pickle_file_location):
         self.pickle_file_location = pickle_file_location
+        self.data_2019_birthday, self.data_2020_birthday = [], []
+        self.arjun_wish_dict = {}
         pass
 
     def GetListFromTextMessages(self):
@@ -30,7 +32,64 @@ class get_personal_wish_messages:
 
 
     def GetYearBirthdayWishes(self):
-        pass
+        self.GetListFromTextMessages()
+        def get_data(dat):
+            year_match_2019 = (re.findall(pattern=".*([\d]{1,2}/[\d]{1,2}/[1,9]{2})",string=dat))
+            if (len(year_match_2019) > 0) & ("happy" in dat):
+                self.data_2019_birthday.append(only)
+            year_match_2020 = (re.findall(pattern=".*([\d]{1,2}/[\d]{1,2}/[0,2]{2})",string=dat))
+            if (len(year_match_2020) > 0) & ("happy" in dat):
+                self.data_2020_birthday.append(only_1)
+            pass
+        list(map(get_data, read_data))
+        date, time, user_id, message = [], [], [], []
+
+        def get_yearwise_data(partial_data):
+            date.append((partial_data.split("-")[0]).split(",")[0])
+            time.append((partial_data.split("-")[0]).split(",")[-1])
+            user_id.append((partial_data.split("-")[-1]).split(":")[0])
+            message.append((partial_data.split("-")[-1]).split(":")[-1])
+
+        list(map(get_yearwise_data, data_2020_birthday))
+        #
+        self.raw_df_2020 = pd.DataFrame()
+        self.raw_df_2020['date'] = date
+        self.raw_df_2020['time'] = time
+        self.raw_df_2020['user_id'] = user_id
+        self.raw_df_2020['message'] = message
+
+        return self.raw_df_2020
+
+    def ProcessDataframe(self):
+        self.GetYearBirthdayWishes()
+        self.raw_df_2020.index = pd.to_datetime(self.raw_df_2020['date'])
+        self.raw_df_2020.drop(labels='date', axis=1, inplace=True)
+        # raw_df_2020.index = raw_df_2020['date']
+        self.raw_df_2020['user_id'] = self.raw_df_2020['user_id'].apply(lambda x: x.strip())
+        self.raw_df_2020['user_id'] = self.raw_df_2020['user_id'].apply(lambda x: x if "deepa" not in x else "null")
+        self.raw_df_2020['user_id'] = self.raw_df_2020['user_id'].apply(lambda x: x if "munna" not in x else "null")
+        self.raw_df_2020 = self.raw_df_2020[self.raw_df_2020['user_id'] != "null"]
+
+        arjun_wishes = self.raw_df_2020[self.raw_df_2020['user_id'] == 'arjun janamatti']
+
+        def remove_newline(row):
+            regex = re.compile("[\n\r\t]")
+            row = regex.sub("", row)
+            return row
+
+        self.arjun_wishes_1 = arjun_wishes.copy()
+        self.arjun_wishes_1['message'] = arjun_wishes['message'].apply(lambda x: remove_newline(x))
+
+    def GetDiciontaryWishes(self):
+        self.ProcessDataframe()
+
+
+        def get_wishes(rows):
+            dates, messages = rows
+            arjun_wish_dict[str(dates).split()[0]] = messages
+
+        list(map(get_wishes, arjun_wishes_1[['message']].itertuples()))
+
 
     pass
 
