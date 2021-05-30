@@ -21,23 +21,23 @@ except:
         pickle.dump(obj=read_data, file=file)
 
 data_2019_birthday, data_2020_birthday = [], []
-def get_data(dat):
-    year_match_2019 = (re.findall(pattern=".*([\d]{1,2}/[\d]{1,2}/[1,9]{2})",string=dat))
-    if (len(year_match_2019) > 0) & ("happy" in dat):
-        data_2019_birthday.append(only)
-    year_match_2020 = (re.findall(pattern=".*([\d]{1,2}/[\d]{1,2}/[0,2]{2})",string=dat))
-    if (len(year_match_2020) > 0) & ("happy" in dat):
-        data_2020_birthday.append(only_1)
-    pass
+# def get_data(dat):
+#     year_match_2019 = (re.findall(pattern=".*([\d]{1,2}/[\d]{1,2}/[1,9]{2})",string=dat))
+#     if (len(year_match_2019) > 0) & ("happy" in dat):
+#         data_2019_birthday.append(only)
+#     year_match_2020 = (re.findall(pattern=".*([\d]{1,2}/[\d]{1,2}/[0,2]{2})",string=dat))
+#     if (len(year_match_2020) > 0) & ("happy" in dat):
+#         data_2020_birthday.append(only_1)
+#     pass
+#
+# list(map(get_data, read_data))
 
-list(map(get_data, read_data))
-
-for only in data:
+for only in read_data:
     year_match = (re.findall(pattern=".*([\d]{1,2}/[\d]{1,2}/[1,9]{2})",string=only))
     if (len(year_match) > 0) & ("happy" in only):
         data_2019_birthday.append(only)
 
-for only_1 in data:
+for only_1 in read_data:
     year_match_1 = (re.findall(pattern=".*([\d]{1,2}/[\d]{1,2}/[0,2]{2})",string=only_1))
     if (len(year_match_1) > 0) & ("happy" in only_1):
         data_2020_birthday.append(only_1)
@@ -70,17 +70,40 @@ raw_df_2020['message']  = message
 raw_df_2020.index = pd.to_datetime(raw_df_2020['date'])
 raw_df_2020.drop(labels='date', axis=1, inplace=True)
 # raw_df_2020.index = raw_df_2020['date']
+raw_df_2020['user_id'] = raw_df_2020['user_id'].apply(lambda x: x.strip())
 raw_df_2020['user_id'] = raw_df_2020['user_id'].apply(lambda x: x if "deepa" not in x else "null")
 raw_df_2020['user_id'] = raw_df_2020['user_id'].apply(lambda x: x if "munna" not in x else "null")
 raw_df_2020 = raw_df_2020[raw_df_2020['user_id'] != "null"]
 
-# data_groupby = raw_df_2020.groupby(raw_df_2020.index.month)
-data_groupby = raw_df_2020.groupby(raw_df_2020.index)
-dates_dict = {}
-for group in data_groupby.groups:
-    dates_dict[group] = data_groupby.get_group(group)
+arjun_wishes = raw_df_2020[raw_df_2020['user_id'] == 'arjun janamatti']
+print(raw_df_2020['user_id'].unique())
 
-print(dates_dict)
+
+
+arjun_wish_dict = {}
+def get_wishes(rows):
+    dates, messages = rows
+    arjun_wish_dict[str(dates).split()[0]] = messages
+
+list(map(get_wishes, arjun_wishes[['message']].itertuples()))
+print(arjun_wish_dict)
+today = pd.to_datetime('today').floor('D')
+print(today)
+
+
+# for (dates, messages) in arjun_wishes[['message']].itertuples():
+#     print(str(dates).split()[0], messages)
+
+
+##### GROUPY DATA BASED ON MONTH
+# # data_groupby = raw_df_2020.groupby(raw_df_2020.index.month)
+# data_groupby = raw_df_2020.groupby(raw_df_2020.index)
+# dates_dict = {}
+# for group in data_groupby.groups:
+#     dates_dict[group] = data_groupby.get_group(group)
+#
+# print(dates_dict)
+
 
 
 
