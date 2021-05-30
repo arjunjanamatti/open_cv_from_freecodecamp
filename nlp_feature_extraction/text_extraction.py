@@ -4,6 +4,36 @@ import pandas as pd
 
 
 pickle_file_location = 'C:/Users/Arjun Janamatti/Downloads/data.pickle'
+
+class get_personal_wish_messages:
+    def __init__(self, pickle_file_location):
+        self.pickle_file_location = pickle_file_location
+        pass
+
+    def GetListFromTextMessages(self):
+        '''
+        First try to read the pickle file for all messages otherwise create a new pickle
+        '''
+        try:
+            with open(file=pickle_file_location, mode='rb') as file_read:
+                self.read_data = pickle.load(file_read)
+        except:
+            file_name = 'C:/Users/Arjun Janamatti/Downloads/WhatsApp Chat with DMB FAMILY.txt'
+
+            with open(file_name, encoding='utf8') as file:
+                data = file.readlines()
+
+            self.read_data = [d.lower() for d in data]
+
+            with open(pickle_file_location, 'wb') as file:
+                pickle.dump(obj=read_data, file=file)
+
+
+    def GetYearBirthdayWishes(self):
+        pass
+
+    pass
+
 try:
     with open(file=pickle_file_location, mode='rb') as file_read:
         read_data = pickle.load(file_read)
@@ -83,7 +113,7 @@ def remove_newline(row):
     row = regex.sub("", row)
     return row
 arjun_wishes_1 = arjun_wishes.copy()
-arjun_wishes_1['message'] = arjun_wishes['message'].apply(lambda x: re.compile("[\n\r\t]").sub("", x))
+arjun_wishes_1['message'] = arjun_wishes['message'].apply(lambda x: remove_newline(x))
 
 arjun_wish_dict = {}
 def get_wishes(rows):
