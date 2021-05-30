@@ -32,18 +32,27 @@ class get_personal_wish_messages:
 
 
     def GetYearBirthdayWishes(self):
+        '''
+
+        :return: Dataframe for 2020 year messages related to anniversary and birthday
+        '''
         self.GetListFromTextMessages()
+
+        # filter messages with happy text in the strings
         self.read_data = [dat for dat in self.read_data
                           if "happy" in dat]
 
+        # below are the patterns to get 2019 and 2020 dates
         pattern_2019_dates = ".*([\d]{1,2}/[\d]{1,2}/[1,9]{2})"
         pattern_2020_dates = ".*([\d]{1,2}/[\d]{1,2}/[0,2]{2})"
 
+        # extract messages related to 2019 and 2020
         self.data_2019_birthday = [dat for dat in self.read_data
                                    if (len(re.findall(pattern=pattern_2019_dates, string=dat)) > 0)]
         self.data_2020_birthday = [dat for dat in self.read_data
                                    if (len(re.findall(pattern=pattern_2020_dates, string=dat)) > 0)]
 
+        # fill the date, time, user_id, message from 2020 data
         date, time, user_id, message = [], [], [], []
 
         a = [(date.append((part.split("-")[0]).split(",")[0]),
@@ -62,13 +71,18 @@ class get_personal_wish_messages:
 
     def ProcessDataframe(self):
         self.GetYearBirthdayWishes()
+        # convert the dates to datetime and make it index
         self.raw_df_2020.index = pd.to_datetime(self.raw_df_2020['date'])
+        # drop the "date" column
         self.raw_df_2020.drop(labels='date', axis=1, inplace=True)
+        # since user_id has space in the starting, we are stripping
         self.raw_df_2020['user_id'] = self.raw_df_2020['user_id'].apply(lambda x: x.strip())
+        # removing the "deepa" and "munna" from the user_id, since they usually wish the next day as per USA time
         self.raw_df_2020['user_id'] = self.raw_df_2020['user_id'].apply(lambda x: x if "deepa" not in x else "null")
         self.raw_df_2020['user_id'] = self.raw_df_2020['user_id'].apply(lambda x: x if "munna" not in x else "null")
         self.raw_df_2020 = self.raw_df_2020[self.raw_df_2020['user_id'] != "null"]
 
+        # filtering the data only messages related to arjun janamatti
         arjun_wishes = self.raw_df_2020[self.raw_df_2020['user_id'] == 'arjun janamatti']
 
         def remove_newline(row):
@@ -76,20 +90,15 @@ class get_personal_wish_messages:
             row = regex.sub("", row)
             return row
 
+        # remove punctuations from the message
         self.arjun_wishes_1 = arjun_wishes.copy()
         self.arjun_wishes_1['message'] = arjun_wishes['message'].apply(lambda x: remove_newline(x))
 
     def GetDiciontaryWishes(self):
         self.ProcessDataframe()
-
-
-        def get_wishes(rows):
-            dates, messages = rows
-            self.arjun_wish_dict[str(dates).split()[0]] = messages
-
-        list(map(get_wishes, self.arjun_wishes_1[['message']].itertuples()))
-
-        return self.arjun_wish_dict
+        # populate the dictionary using the list comprehension
+        simple_dict = {str(dates).split()[0]: f'{messages}' for (dates, messages) in self.arjun_wishes_1[['message']].itertuples()}
+        return simple_dict
 
 
     pass
