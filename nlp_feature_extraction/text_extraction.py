@@ -1,23 +1,37 @@
-# import pandas as pd
-#
-#
-# raw_df = pd.read_csv('C:/Users/Arjun Janamatti/Downloads/WhatsApp Chat with DMB FAMILY.txt', sep=',')
-#
-# print(raw_df)
-
-file_name = 'C:/Users/Arjun Janamatti/Downloads/WhatsApp Chat with DMB FAMILY.txt'
-
-with open(file_name, encoding='utf8') as file:
-    data = file.readlines()
-
-print(data)
-
-data = [d.lower() for d in data]
-
+import pickle
 import re
 import pandas as pd
 
+
+pickle_file_location = 'C:/Users/Arjun Janamatti/Downloads/data.pickle'
+try:
+    with open(file=pickle_file_location, mode='rb') as file_read:
+        read_data = pickle.load(file_read)
+except:
+    file_name = 'C:/Users/Arjun Janamatti/Downloads/WhatsApp Chat with DMB FAMILY.txt'
+
+    with open(file_name, encoding='utf8') as file:
+        data = file.readlines()
+
+    print(data)
+
+    read_data = [d.lower() for d in data]
+
+    with open(pickle_file_location,'wb') as file:
+        pickle.dump(obj=read_data, file=file)
+
 data_2019_birthday, data_2020_birthday = [], []
+def get_data(dat):
+    year_match_2019 = (re.findall(pattern=".*([\d]{1,2}/[\d]{1,2}/[1,9]{2})",string=dat))
+    if (len(year_match_2019) > 0) & ("happy" in dat):
+        data_2019_birthday.append(only)
+    year_match_2020 = (re.findall(pattern=".*([\d]{1,2}/[\d]{1,2}/[0,2]{2})",string=dat))
+    if (len(year_match_2020) > 0) & ("happy" in dat):
+        data_2020_birthday.append(only_1)
+    pass
+
+list(map(get_data, read_data))
+
 for only in data:
     year_match = (re.findall(pattern=".*([\d]{1,2}/[\d]{1,2}/[1,9]{2})",string=only))
     if (len(year_match) > 0) & ("happy" in only):
@@ -36,7 +50,7 @@ print(data_2020_birthday)
 
 date, time, user_id, message = [], [], [], []
 
-def get_data(partial_data):
+def get_yearwise_data(partial_data):
     date.append((partial_data.split("-")[0]).split(",")[0])
     time.append((partial_data.split("-")[0]).split(",")[-1])
     user_id.append((partial_data.split("-")[-1]).split(":")[0])
@@ -45,7 +59,7 @@ def get_data(partial_data):
 
 
 # print(list(map(get_data, data_2020_birthday)))
-list(map(get_data, data_2020_birthday))
+list(map(get_yearwise_data, data_2020_birthday))
 #
 raw_df_2020 = pd.DataFrame()
 raw_df_2020['date']  = date
@@ -68,14 +82,19 @@ for group in data_groupby.groups:
 
 print(dates_dict)
 
-import spacy
 
-nlp = spacy.load("en_core_web_md")
-print('loaded successfully')
 
-message_list = list(raw_df_2020['message'])
-for mes in message_list:
-    doc = nlp(mes)
-    for ent in doc.ents:
-        print(ent.text, ent.start_char, ent.end_char, ent.label_)
-    print()
+
+
+##### USING NER
+# import spacy
+#
+# nlp = spacy.load("en_core_web_md")
+# print('loaded successfully')
+#
+# message_list = list(raw_df_2020['message'])
+# for mes in message_list:
+#     doc = nlp(mes)
+#     for ent in doc.ents:
+#         print(ent.text, ent.start_char, ent.end_char, ent.label_)
+#     print()
