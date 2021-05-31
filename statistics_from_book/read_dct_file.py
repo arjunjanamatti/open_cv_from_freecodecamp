@@ -35,6 +35,11 @@ print()
 
 print(selected_variables_data['agepreg'])
 
+##### DATA CLEANING
+# since agepreg is encoded as an integer number of centiyears, hence devide age by 100
+selected_variables_data['agepreg'] = selected_variables_data['agepreg'].apply(lambda x:x/100)
+
+
 end_time = time.perf_counter()
 total_time = end_time - start_time
 print(f'Total time: {total_time}')
