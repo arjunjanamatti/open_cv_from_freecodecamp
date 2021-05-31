@@ -3,6 +3,7 @@ from statadict import parse_stata_dict
 import time
 import numpy as np
 import pickle
+from collections import defaultdict
 
 start_time = time.perf_counter()
 
@@ -48,6 +49,7 @@ except:
 def data_cleaning():
     selected_variables_data['agepreg'] = selected_variables_data['agepreg'].apply(lambda x: x / 100)
     na_vals = [97, 98, 99]
+    selected_variables_data.loc[selected_variables_data['birthwgt_lb'] > 20, 'birthwgt_lb'] = np.nan
     selected_variables_data['birthwgt_lb'] = selected_variables_data['birthwgt_lb'].apply(lambda x:x if x not in na_vals else np.nan)
     selected_variables_data['birthwgt_oz'] = selected_variables_data['birthwgt_oz'].apply(lambda x:x if x not in na_vals else np.nan)
     selected_variables_data['totalwgt_lb'] = (selected_variables_data['birthwgt_lb'] + selected_variables_data[
@@ -61,17 +63,24 @@ cleaned_data = data_cleaning().copy()
 
 ##### DATA VALIDATION
 
-# value counts will give in the descending order
-print(cleaned_data['outcome'].value_counts())
-
-# value counts with sort_values will give results in ascending order
-print(cleaned_data['outcome'].value_counts().sort_values())
-
-# check out for the birthweight
-print(cleaned_data['birthwgt_lb'].value_counts())
+# # value counts will give in the descending order
+# print(cleaned_data['outcome'].value_counts())
+#
+# # value counts with sort_values will give results in ascending order
+# print(cleaned_data['outcome'].value_counts().sort_values())
+#
+# # check out for the birthweight
+# print(cleaned_data['birthwgt_lb'].value_counts())
 # From the above we observe that one baby has weighted in at 51 pounds, which is quite huge
-cleaned_data.loc[cleaned_data['birthwgt_lb'] > 20, 'birthwgt_lb'] = np.nan
-print(cleaned_data['birthwgt_lb'].value_counts())
+
+
+##### DATA INTERPRETATION
+
+e = defaultdict(list)
+print({e[caseid].append(index) for index, caseid in cleaned_data['caseid'].iteritems()})
+print(e)
+
+# look at an example caseid
 
 end_time = time.perf_counter()
 total_time = end_time - start_time
