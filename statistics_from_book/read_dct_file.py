@@ -1,6 +1,7 @@
 import pandas as pd
 from statadict import parse_stata_dict
 import time
+import numpy as np
 
 start_time = time.perf_counter()
 stata_dict = parse_stata_dict(file="2002FemPreg.dct")
@@ -33,11 +34,22 @@ print(selected_variables_data.info())
 
 print()
 
-print(selected_variables_data['agepreg'])
-
 ##### DATA CLEANING
 # since agepreg is encoded as an integer number of centiyears, hence devide age by 100
 selected_variables_data['agepreg'] = selected_variables_data['agepreg'].apply(lambda x:x/100)
+na_vals = [97,98,99]
+print(selected_variables_data['birthwgt_lb'].value_counts())
+
+def clean_weights(column_name, na_vals):
+    return selected_variables_data[column_name].apply(lambda x:x if x not in na_vals else np.nan)
+    pass
+
+selected_variables_data['birthwgt_lb'] = clean_weights('birthwgt_lb', na_vals)
+selected_variables_data['birthwgt_oz'] = clean_weights('birthwgt_oz', na_vals)
+selected_variables_data['totalwgt_lb'] = (selected_variables_data['birthwgt_lb'] + selected_variables_data['birthwgt_oz']) / 16.0
+
+
+print(selected_variables_data['birthwgt_lb'].value_counts())
 
 
 end_time = time.perf_counter()
