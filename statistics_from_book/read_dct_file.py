@@ -81,6 +81,21 @@ print({e[caseid].append(index) for index, caseid in cleaned_data['caseid'].iteri
 print(e)
 
 # look at an example caseid
+caseid = 10229
+indices_caseid = e[caseid]
+print(cleaned_data.loc[indices_caseid])
+
+#         caseid  prglength  outcome  ...  agepreg     finalwgt  totalwgt_lb
+# 11093   10229        2.0        4  ...    19.58  3369.662656          NaN
+# 11094   10229        3.0        4  ...    21.75  3369.662656          NaN
+# 11095   10229        4.0        4  ...    23.83  3369.662656          NaN
+# 11096   10229        2.0        4  ...    25.50  3369.662656          NaN
+# 11097   10229        3.0        4  ...    29.08  3369.662656          NaN
+# 11098   10229       13.0        4  ...    32.16  3369.662656          NaN
+# 11099   10229       43.0        1  ...    33.16  3369.662656        1.125
+#
+
+# Above result shows that caseid = 10229 had seven pregnancies and first six were miscarriages, and seventh one was successful
 
 end_time = time.perf_counter()
 total_time = end_time - start_time
